@@ -5,20 +5,23 @@
  *
  */
 
+
+var getMasterItems = function () {
+    return $.fn.restAPI({
+        //urlname: 'masteritem',
+        urlname: '/api/v1/masterlist/masteritem.json',
+    });
+};
+
+
+/**
+ * MAIN
+ *
+ */
 $(document).ready(function () {
     // Start here
+    getMasterItems().responseObj.done(function (data) {
+        console.log(data);
+    });
 
-    /*
-        AJAX calls should be something like this:
-        $.ajax({
-            url: '//url/goes/here',
-            type: 'POST',
-            data: {postdata: postdata},
-            beforeSend: function (xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-                    xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-                }
-            },
-        }).done(doSomethingWithData);
-     */
 });

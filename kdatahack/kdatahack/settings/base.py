@@ -231,6 +231,12 @@ THIRD_PARTY_APPS = (
     # Social auth integration
     # See: http://psa.matiasaguirre.net/docs/configuration/django.html
     'social.apps.django_app.default',
+
+    # Django JS
+    'djangojs',
+
+    # EZTables
+    'eztables',
 )
 
 # Apps specific for this project go here.

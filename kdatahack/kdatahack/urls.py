@@ -46,6 +46,9 @@ urlpatterns = patterns(
     # Admin URL
     url(r'^admin/', include(admin.site.urls)),
 
+    # Third-party app URLs
+    url(r'^djangojs/', include('djangojs.urls')),
+
     # Local app URLs
     url(r'^$', HomePage.as_view(), name='home'),
     url(r'^research/', ResearchPage.as_view(), name='research'),
