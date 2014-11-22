@@ -11,6 +11,7 @@ from .views import (
     UserDetailsAPIView,
 )
 
+
 api_v1_patterns = format_suffix_patterns(patterns(
     '',
     url(
@@ -41,6 +42,7 @@ urlpatterns = patterns(
 
     # Local app URLs
     url(r'^$', HomepageView.as_view(), name='home'),
+    url(r'^dashboard/', include('dashboard.urls')),
     url(r'^(?P<username>\w+)/$', UserProfileView.as_view(), name='user_profile_view'),
     url(r'^(?P<username>\w+)/edit/$', UserProfileEditView.as_view(), name='user_profile_edit'),
     url(r'^api/v1/', include(api_v1_patterns, namespace='api_v1'))
