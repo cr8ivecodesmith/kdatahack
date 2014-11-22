@@ -38,6 +38,9 @@ class Awards(models.Model):
 
     master_item = models.ForeignKey('masteritems.MasterItem', related_name='awards_set', blank=True, null=True)
 
+    def __unicode__(self):
+     return "{}:{}".format(self.award_id, self.item_name)
+
     def _get_unit_price(self):
         if self.quantity:
             return self.contract_amt / self.quantity
