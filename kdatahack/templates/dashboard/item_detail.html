@@ -13,6 +13,6 @@
 {% endblock main %}
 
 {% block extra_js %}
-<script type="text/javascript" src="{% static 'highcharts/js/highcharts.js' %}"></script>
+<script type="text/javascript" src="{% static 'highcharts/highcharts.js' %}"></script>
 {% price_history_graph "Price History" "history-graph" item.price_history %}
 {% endblock extra_js %}
