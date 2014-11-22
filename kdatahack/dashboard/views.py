@@ -6,7 +6,7 @@ class HomePage(TemplateView):
 
 
 class ResearchPage(TemplateView):
-    pass
+    template_name = 'dashboard/research_list.html'
 
 
 class ItemDetailPage(TemplateView):
