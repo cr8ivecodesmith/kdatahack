@@ -30,6 +30,10 @@ api_v1_patterns = format_suffix_patterns(patterns(
         r'philgeps/',
         include('philgeps.urls'),
     ),
+    url(
+        r'masterlist/',
+        include('masteritems.urls'),
+    ),
 ))
 
 urlpatterns = patterns(
