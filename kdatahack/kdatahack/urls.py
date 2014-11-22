@@ -16,12 +16,16 @@ api_v1_patterns = format_suffix_patterns(patterns(
     url(
         r'users/list',
         UserListAPIView.as_view(),
-        name='api_v1_users_list',
+        name='users_list',
     ),
     url(
         r'users/details/(?P<username>\w+)',
         UserDetailsAPIView.as_view(),
-        name='api_v1_users_details',
+        name='users_details',
+    ),
+    url(
+        r'philgeps/',
+        include('philgeps.urls'),
     ),
 ))
 
