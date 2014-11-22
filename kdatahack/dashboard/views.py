@@ -6,7 +6,7 @@ from masteritems.models import MasterItem
 
 
 class HomePage(TemplateView):
-    pass
+    template_name = 'dashboard/home.html'
 
 
 class ResearchPage(TemplateView):
