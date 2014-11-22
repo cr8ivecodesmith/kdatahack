@@ -1,0 +1,81 @@
+<script type="text/javascript">
+$(function() {
+    $('#{{ container }}').highcharts({
+        title: {
+            text: '{{ title }}'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: 'Price'
+            }
+        },
+        series: [
+            {% for oid, odata in graph_data.items %}
+            {
+                name: '{{odata.org_name}}',
+                data: [
+                {% for point in odata.history %}
+                    {
+                        x: Date.UTC({{point.date.year}}, {{point.date.month}}-1, {{point.date.day}}),
+                        y: {{point.price}}
+                    },
+                {% endfor %}
+                ]
+            },
+            {% endfor %}
+        ]
+    });
+            /*name: 'ORGANIZATION 1',
+            data: [{
+                x: Date.UTC(1, 0, 2014),
+                y: 123.00
+            },{
+                x: Date.UTC(2, 0, 2014),
+                y: 200.00
+            },{
+                x: Date.UTC(3, 0, 2014),
+                y: 150.00
+            },{
+                x: Date.UTC(4, 0, 2014),
+                y: 160.00
+            },{
+                x: Date.UTC(5, 0, 2014),
+                y: 170.00
+            },{
+                x: Date.UTC(6, 0, 2014),
+                y: 150.00
+            },{
+                x: Date.UTC(7, 0, 2014),
+                y: 190.00
+            }]
+        },{
+            name: 'ORGANIZATION 2',
+            data: [{
+                x: Date.UTC(1, 0, 2014),
+                y: 251.00
+            },{
+                x: Date.UTC(2, 0, 2014),
+                y: 221.00
+            },{
+                x: Date.UTC(3, 0, 2014),
+                y: 230.00
+            },{
+                x: Date.UTC(4, 0, 2014),
+                y: 190.00
+            },{
+                x: Date.UTC(5, 0, 2014),
+                y: 180.00
+            },{
+                x: Date.UTC(6, 0, 2014),
+                y: 120.00
+            },{
+                x: Date.UTC(7, 0, 2014),
+                y: 200.00
+            }]
+        }]
+    });*/
+});
+</script>
