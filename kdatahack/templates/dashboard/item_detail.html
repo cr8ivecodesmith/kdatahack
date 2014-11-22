@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% load charts %}
 
 {% block main %}
-HELLO
+<div class="container" style="text-align:center;">
+    <h1>{{ item.item_name }}</h1>
+    <h4>{{ item.item_description }}</h4>
+    <h2><span class="label label-success">Market Price P{{ item.market_price|floatformat:2 }}</span></h2>
+    <hr>
+    <div id="history-graph"></div>
+</div>
 {% endblock main %}
+
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'highcharts/js/highcharts.js' %}"></script>
+{% price_history_graph "Price History" "history-graph" item.price_history %}
+{% endblock extra_js %}

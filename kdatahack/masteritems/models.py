@@ -25,6 +25,7 @@ class MasterItem(models.Model):
         org_prices = {item.awardee_id.org_id: {
             'price': item.unit_price,
             'date': item.award_date,
-            'org_name': item.awardee} for item in item_set.iterator()}
+            'org_name': item.awardee_id.org_name} for item in item_set.iterator()}
         return org_prices
+    price_history = property(_get_price_history)
 

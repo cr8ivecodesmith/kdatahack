@@ -34,6 +34,9 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="{% static 'kdatahack/libs/jquery/jquery.cookie.js' %}" type="text/javascript"></script>
 
+    {% block extra_js %}
+    {% endblock %}
+
     <!-- keep this at the bottom -->
     <script src="{% static 'kdatahack/js/plugins.js' %}" type="text/javascript"></script>
     <script src="{% static 'kdatahack/js/scripts.js' %}" type="text/javascript"></script>
