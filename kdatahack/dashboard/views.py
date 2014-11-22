@@ -10,4 +10,5 @@ class ResearchPage(TemplateView):
 
 
 class ItemDetailPage(TemplateView):
-    pass
+    template_name = 'dashboard/item_detail.html'
+
