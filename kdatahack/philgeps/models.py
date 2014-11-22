@@ -66,7 +66,7 @@ class Organization(models.Model):
 
 class BidLineItem(models.Model):
     ref_id = models.ForeignKey('BidInformation', to_field='ref_id')
-    line_item_id = models.PositiveIntegerField(null=False)
+    line_item_id = models.PositiveIntegerField(null=False, unique=True)
     item_name = models.CharField(max_length=2048, blank=True)
     item_description = models.TextField(blank=True)
     qty = models.PositiveIntegerField(null=True)
