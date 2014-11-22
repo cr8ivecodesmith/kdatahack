@@ -8,7 +8,7 @@ class BiddersList(models.Model):
 	bidder_name = models.CharField()
  
 
-class Awards(models.Models):
+class Awards(models.Model):
 	award_id = models.PositiveIntegerField(null=False)
 	ref_id = models.ForeignKey('BidInformation', to_field='ref_id')
 	award_title = models.CharField()
@@ -32,9 +32,9 @@ class Awards(models.Models):
 	proceed_date = models.DateTimeField(blank=True)
 	contract_start_date = models.DateTimeField(blank=True)
 	contract_end_date = models.DateTimeField(blank=True)
-	is_short_list = models.IntegerField(maxlength=1)
-	is_re_award = models.IntegerField(maxlength=1)
-	is_amp = models.IntegerField(maxlength=1)
+	is_short_list = models.IntegerField(max_length=1)
+	is_re_award = models.IntegerField(max_length=1)
+	is_amp = models.IntegerField(max_length=1)
 
 
 class Organization(models.Model):
@@ -49,7 +49,7 @@ class Organization(models.Model):
     supplier_form_of_organization = models.CharField(blank=True)
     supplier_organization_type = models.CharField(blank=True)
     org_reg_date = models.DateTimeField(blank=True)
-    website = models.UrlField(blank=True)
+    website = models.URLField(blank=True)
     org_description = models.TextField(blank=True)
     country_code = models.CharField(max_length=2, blank=True)
     country = models.CharField(blank=True)
@@ -89,7 +89,7 @@ class BidInformation(models.Model):
     procurement_mode = models.CharField(blank=True)
     funding_instrument = models.CharField(blank=True)
     funding_source = models.CharField(blank=True)
-    approved_budget = models.FloatType(null=False, blank=False)
+    approved_budget = models.FloatField(null=False, blank=False)
     publish_date = models.DateTimeField(null=False, blank=False)
     closing_date = models.DateTimeField(null=False, blank=False)
     contract_duration = models.IntegerField(null=True)
@@ -108,7 +108,7 @@ class BidInformation(models.Model):
     other_info = models.TextField(blank=True)
     tender_status = models.CharField(blank=True)
     reason = models.TextField(blank=True)
-    date_available = models.DateTime(null=True, blank=True)
+    date_available = models.DateTimeField(null=True, blank=True)
     collection_contact = models.CharField(blank=True)
     collection_point = models.CharField(blank=True)
     special_instruction = models.TextField(blank=True)
