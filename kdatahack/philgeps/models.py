@@ -74,6 +74,17 @@ class BidLineItem(models.Model):
     uom = models.CharField(max_length=2048, blank=True)
     budget = models.FloatField(null=True)
     modified_date = models.DateTimeField(blank=True)
+    master_item = models.ForeignKey('masteritems.MasterItem', related_name='bidlineitem_set', blank=True, null=True)
+
+    def __unicode__(self):
+        return "{}:{}".format(self.line_item_id, self.item_name)
+
+    @property
+    def unit_price(self):
+        if qty:
+            return budget / qty
+        else:
+            return None
 
 
 class BidInformation(models.Model):
@@ -117,4 +128,5 @@ class BidInformation(models.Model):
     modified_date = models.DateTimeField()
 
     def __unicode__(self):
-        return "{}: {} {}".format(ref_id, notice_type, business_category)
+        return "{}: {} {}".format(self.ref_id, self.notice_type, self.business_category)
+
