@@ -4,3 +4,4 @@ python-social-auth
 psycopg2
 pillow
 gunicorn
+messytables
