@@ -48,7 +48,7 @@ class Organization(models.Model):
     government_organization_type = models.CharField(max_length=2048, blank=True)
     supplier_form_of_organization = models.CharField(max_length=2048, blank=True)
     supplier_organization_type = models.CharField(max_length=2048, blank=True)
-    org_reg_date = models.DateTimeField(blank=True)
+    org_reg_date = models.DateTimeField(null=True)
     website = models.URLField(blank=True)
     org_description = models.TextField(blank=True)
     country_code = models.CharField(max_length=2, blank=True)
@@ -59,9 +59,9 @@ class Organization(models.Model):
     address1 = models.TextField(blank=True)
     address2 = models.TextField(blank=True)
     address3 = models.TextField(blank=True)
-    zip_code = models.PositiveIntegerField(null=True)
+    zip_code = models.CharField(max_length=2048, blank=True)
     org_status = models.CharField(max_length=2048, blank=True)
-    modified_date = models.DateTimeField(blank=True)
+    modified_date = models.DateTimeField(null=True)
 
 
 class BidLineItem(models.Model):
@@ -78,7 +78,7 @@ class BidLineItem(models.Model):
 
 class BidInformation(models.Model):
     ref_id = models.IntegerField(unique=True)
-    ref_no = models.IntegerField()
+    ref_no = models.IntegerField()  
     stage = models.IntegerField()
     stage2_ref_id = models.IntegerField()
     org_id = models.ForeignKey('Organization', to_field='org_id', related_name='bid_information')
