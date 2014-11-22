@@ -4,4 +4,5 @@ python-social-auth
 psycopg2
 pillow
 gunicorn
+django-filter
 messytables

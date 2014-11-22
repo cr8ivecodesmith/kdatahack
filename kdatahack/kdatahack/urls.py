@@ -11,17 +11,24 @@ from .views import (
     UserDetailsAPIView,
 )
 
+from dashboard.views import HomePage, ResearchPage, ItemDetailPage
+
+
 api_v1_patterns = format_suffix_patterns(patterns(
     '',
     url(
         r'users/list',
         UserListAPIView.as_view(),
-        name='api_v1_users_list',
+        name='users_list',
     ),
     url(
         r'users/details/(?P<username>\w+)',
         UserDetailsAPIView.as_view(),
-        name='api_v1_users_details',
+        name='users_details',
+    ),
+    url(
+        r'philgeps/',
+        include('philgeps.urls'),
     ),
 ))
 
@@ -36,7 +43,9 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     # Local app URLs
-    url(r'^$', HomepageView.as_view(), name='home'),
+    url(r'^$', HomePage.as_view(), name='home'),
+    url(r'^research/', ResearchPage.as_view(), name='research'),
+    url(r'^item/(?P<item_id>\d+)/$', ItemDetailPage.as_view(), name='item_detail'),
     url(r'^(?P<username>\w+)/$', UserProfileView.as_view(), name='user_profile_view'),
     url(r'^(?P<username>\w+)/edit/$', UserProfileEditView.as_view(), name='user_profile_edit'),
     url(r'^api/v1/', include(api_v1_patterns, namespace='api_v1'))
