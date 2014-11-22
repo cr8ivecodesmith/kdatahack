@@ -9,6 +9,15 @@
     <h2><span class="label label-success">Market Price P{{ item.market_price|floatformat:2 }}</span></h2>
     <hr>
     <div id="history-graph"></div>
+    <hr>
+    <div class="col-md-6">
+        <h2>Historical highest price</h2>
+        <h1><span class="label label-danger">P{{ item.minmax.max_price|floatformat:2 }}</span></h1>
+    </div>
+    <div class="col-md-6">
+        <h2>Historical lowest price</h2>
+        <h1><span class="label label-info">P{{ item.minmax.min_price|floatformat:2 }}</span></h1>
+    </div>
 </div>
 {% endblock main %}
 

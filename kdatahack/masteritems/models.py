@@ -29,3 +29,13 @@ class MasterItem(models.Model):
         return org_prices
     price_history = property(_get_price_history)
 
+    def _get_minmax_price(self):
+        min_price = max_price = 0
+        for oid, odata in self.price_history.items():
+            if odata['price'] > max_price:
+                max_price = odata['price']
+            if not min_price or odata['price'] < min_price:
+                min_price = odata['price']
+        return {'min_price': min_price, 'max_price': max_price}
+    minmax = property(_get_minmax_price)
+
