@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}kdatahack - Profile - {{ user.get_full_name|default:user.username }} | edit{% endblock %}
+
+{% block main %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <h1>Editing profile for <strong>{{ user.get_full_name|default:user.username }}</strong></h1>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
