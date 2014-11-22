@@ -8,14 +8,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('masteritems', '0001_initial'),
-        ('philgeps', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bidlineitem',
-            name='master_item',
-            field=models.ForeignKey(related_name='bidlineitem_set', blank=True, to='masteritems.MasterItem', null=True),
-            preserve_default=True,
+            model_name='masteritem',
+            name='item_description',
+            field=models.TextField(default='', blank=True),
+            preserve_default=False,
         ),
     ]

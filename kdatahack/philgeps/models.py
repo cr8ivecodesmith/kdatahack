@@ -36,6 +36,15 @@ class Awards(models.Model):
     is_re_award = models.IntegerField(max_length=1)
     is_amp = models.IntegerField(max_length=1)
 
+    master_item = models.ForeignKey('masteritems.MasterItem', related_name='awards_set', blank=True, null=True)
+
+    def _get_unit_price(self):
+        if self.quantity:
+            return self.contract_amt / self.quantity
+        else:
+            return None
+    unit_price = property(_get_unit_price)
+
 
 class Organization(models.Model):
     org_id = models.PositiveIntegerField(null=False, unique=True)
@@ -74,17 +83,9 @@ class BidLineItem(models.Model):
     uom = models.CharField(max_length=2048, blank=True)
     budget = models.FloatField(null=True)
     modified_date = models.DateTimeField(blank=True)
-    master_item = models.ForeignKey('masteritems.MasterItem', related_name='bidlineitem_set', blank=True, null=True)
 
     def __unicode__(self):
         return "{}:{}".format(self.line_item_id, self.item_name)
-
-    @property
-    def unit_price(self):
-        if qty:
-            return budget / qty
-        else:
-            return None
 
 
 class BidInformation(models.Model):
