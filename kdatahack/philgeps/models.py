@@ -46,7 +46,7 @@ class Awards(models.Model):
         if self.quantity:
             return self.contract_amt / self.quantity
         else:
-            return None
+            return self.contract_amt
     unit_price = property(_get_unit_price)
 
 

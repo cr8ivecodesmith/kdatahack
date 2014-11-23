@@ -5,5 +5,5 @@ from .models import MasterItem
 
 @admin.register(MasterItem)
 class MasterItemAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['item_name', 'item_description']
 
