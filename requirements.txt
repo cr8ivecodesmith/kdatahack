@@ -8,3 +8,4 @@ django-filter
 messytables
 django-eztables
 ipython
+tablib
