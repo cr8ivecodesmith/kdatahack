@@ -30,7 +30,6 @@ var renderMasterItemDT = function (objId) {
 
 var getMasterItems = function () {
     return $.fn.restAPI({
-        //urlname: 'masteritem',
         urlname: '/api/v1/masterlist/masteritem.json',
     });
 };
@@ -41,10 +40,39 @@ var getMasterItems = function () {
  *
  */
 $(document).ready(function () {
-    // Start here
-    renderMasterItemDT('#research-masteritem-dt-modal');
+    var masterItemDT = renderMasterItemDT('#research-masteritem-dt-modal');
     getMasterItems().responseObj.done(function (data) {
         console.log(data);
+    });
+
+    // Research modal datatable row highlighting
+    $('#research-masteritem-dt-modal tbody').on('click', 'tr', function () {
+        $(this).datatableHighlight({
+            datatable: masterItemDT.datatable
+        });
+    });
+
+    // Clear items
+    $('#research-btn-clear-items').on('click', function () {
+        $('#research-list-table').empty();
+    });
+
+    // Add items
+    $('#research-btn-add-item').on('click', function() {
+        var selRow = $('#research-masteritem-dt-modal tbody tr.row_selected td'),
+            masterItemId = $(selRow[0]).text(),
+            listRow = $('<tr></tr>');
+        $.fn.restAPI({
+            urlname: '/api/v1/masterlist/masteritem/' + masterItemId + '.json'
+        }).responseObj.done(function (data) {
+            listRow.append('<td>' + data.id + '</td>');
+            listRow.append('<td>' + data.item_name + '</td>');
+            listRow.append('<td>' + data.item_description + '</td>');
+            listRow.append('<td>' + data.uom + '</td>');
+            listRow.append('<td><input type="text" value="1" size="2"></td>');
+            listRow.append('<td></td>');
+            $('#research-list-table').append(listRow);
+        });
     });
 
 });

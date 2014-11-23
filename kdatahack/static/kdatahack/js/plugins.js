@@ -233,3 +233,51 @@ var sameOrigin = function(url) {
 //})(jQuery, Django, window, document);
 })(jQuery, window, document);
 
+
+/**
+ * Datatables jQuery plugin highlighting a row
+ *
+ */
+;(function($, window, document, undefined) {
+    // Create the defaults
+    var pluginName = 'datatableHighlight',
+        defaults = {
+            datatable: undefined,
+        };
+
+    // Plugin constructor
+    function Plugin(element, options) {
+        this.element = element;
+        this.options = $.extend({}, defaults, options);
+        this._defaults = defaults;
+        this._name = pluginName;
+        this.init();
+        this.highlight();
+    }
+
+    /**
+     * Plugin prototype code section
+     * All plugin code goes here.
+     */
+    Plugin.prototype.init = function() {
+    };
+
+    Plugin.prototype.highlight = function() {
+        if ($(this.element).hasClass('row_selected')) {
+            $(this.element).css('background-color', '').removeClass('row_selected');
+        }
+        else {
+            this.options.datatable
+                .$('.row_selected')
+                .css('background-color', '')
+                .removeClass('row_selected');
+            $(this.element).addClass('row_selected').css('background-color', '#99df99');
+        }
+    };
+
+    /* End Plugin code section */
+
+    $.fn[pluginName] = function(options) {
+        return new Plugin(this, options);
+    }
+})(jQuery, window, document);

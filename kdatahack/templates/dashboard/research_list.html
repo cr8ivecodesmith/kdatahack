@@ -15,6 +15,7 @@
         <table class="table table-stripped">
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Item</th>
                     <th>Description</th>
                     <th>UOM</th>
@@ -22,15 +23,29 @@
                     <th>Price</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody id="research-list-table"></tbody>
         </table>
     </div>
 </div>
 <div class="row">
     <div class="col-xs-12">
+        <label>Total: </label><span id="research-total-price"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
         <button
+            id="research-btn-clear-items"
+            class="btn btn-lg"
+        >Clear items</button>
+        <button
+            id="research-btn-update-price"
             class="btn btn-primary btn-lg"
-        >Update total</button>
+        >Update price</button>
+        <button
+            id="research-btn-download-list"
+            class="btn btn-primary btn-lg"
+        >Download</button>
     </div>
 </div>
 {% include 'dashboard/research_list_modal.html' %}
