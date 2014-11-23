@@ -9,7 +9,7 @@ class BiddersListAdmin(admin.ModelAdmin):
 
 @admin.register(models.Awards)
 class AwardsItemAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['item_name', 'item_description']
 
 @admin.register(models.Organization)
 class OrganizationAdmin(admin.ModelAdmin):
