@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="row">
+    <div class="col-xs-12">
+        <button
+            class="btn btn-primary btn-lg"
+            data-toggle="modal"
+            data-target="#research-list-add-item-modal"
+        >Add item</button>
+    </div>
+</div>
+<div class="row" style="overflow-x: auto;">
+    <div class="col-xs-12">
+        <table class="table table-stripped">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>UOM</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <button
+            class="btn btn-primary btn-lg"
+        >Update total</button>
+    </div>
+</div>
+{% include 'dashboard/research_list_modal.html' %}
+{% endblock %}
