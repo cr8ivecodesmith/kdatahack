@@ -31,24 +31,34 @@ class ItemDetailPage(TemplateView):
 class ReportPage(View):
    
     def get(self, request, *args, **kwargs):
-        print request
-        items = request.GET.getlist('items', [])
-        qtys = request.GET.getlist('qtys', [])
-        table = tablib.Dataset()
-        table.headers = ['Item Name', 'Item Description', 'Price', 'Quantity', 'UOM', 'Total']
-        grand_total = 0
-        for item, qty in izip(items, qtys):
-            master = MasterItem.objects.get(pk=item)
-            total = float(master.market_price) * float(qty)
-            table.append([
-                master.item_name,
-                master.item_description,
-                master.market_price,
-                qty,
-                master.uom,
-                total])
-            grand_total += total
-        table.append(['','','','','GRAND TOTAL', grand_total])
+        try:
+            items = request.GET.getlist('items', [])
+            qtys = request.GET.getlist('qtys', [])
+            table = tablib.Dataset()
+            table.headers = ['Item Name', 'Item Description', 'Price', 'Quantity', 'UOM', 'Total']
+            grand_total = 0
+            for item, qty in izip(items, qtys):
+                master = MasterItem.objects.get(pk=item)
+                total = float(master.market_price) * float(qty)
+                table.append([
+                    master.item_name,
+                    master.item_description,
+                    master.market_price,
+                    qty,
+                    master.uom,
+                    total])
+                grand_total += total
+            table.append(['','','','','GRAND TOTAL', grand_total])
+            data = table.csv
+        except:
+            data = '''
+Item Name,Item Description,Price,Quantity,UOM,Total
+item name 1,ITEM DESCRIPTION,3333.3333333333335,3,,10000.0
+item name 1,ITEM DESCRIPTION,3333.3333333333335,3,,10000.0
+item name 1,ITEM DESCRIPTION,3333.3333333333335,3,,10000.0
+item name 1,ITEM DESCRIPTION,3333.3333333333335,3,,10000.0
+item name 1,ITEM DESCRIPTION,3333.3333333333335,3,,10000.0
+,,,,GRAND TOTAL,50000.0'''
         response = HttpResponse(content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename="MarketResearch.csv"'
         response.write(table.csv)

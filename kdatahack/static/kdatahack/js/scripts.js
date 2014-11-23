@@ -66,12 +66,27 @@ $(document).ready(function () {
             urlname: '/api/v1/masterlist/masteritem/' + masterItemId + '.json'
         }).responseObj.done(function (data) {
             listRow.append('<td>' + data.id + '</td>');
-            listRow.append('<td>' + data.item_name + '</td>');
+            listRow.append('<td><a href="/item/' + data.id + '" target="_blank">' +
+            data.item_name + '</a></td>');
             listRow.append('<td>' + data.item_description + '</td>');
             listRow.append('<td>' + data.uom + '</td>');
             listRow.append('<td><input type="text" value="1" size="2"></td>');
+            listRow.append('<td>' + data.market_price + '</td>');
             listRow.append('<td></td>');
             $('#research-list-table').append(listRow);
+        });
+    });
+
+    // Update item prices
+    $('#research-btn-update-price').on('click', function () {
+        var listRows = $('#research-list-table tr');
+        $.each(listRows, function (i, v) {
+            var cols = v.cells;
+            /*
+            console.log($(cols[cols.length - 1]).text());
+            console.log($(cols[cols.length - 2]).text());
+            console.log($(cols[cols.length - 3]).text());
+            */
         });
     });
 

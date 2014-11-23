@@ -21,6 +21,7 @@
                     <th>UOM</th>
                     <th>Qty</th>
                     <th>Price</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody id="research-list-table"></tbody>
@@ -29,7 +30,7 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <label>Total: </label><span id="research-total-price"></span>
+        <label>Grand Total: </label><span id="research-total-price"></span>
     </div>
 </div>
 <div class="row">
@@ -42,10 +43,17 @@
             id="research-btn-update-price"
             class="btn btn-primary btn-lg"
         >Update price</button>
+        <!--
         <button
             id="research-btn-download-list"
             class="btn btn-primary btn-lg"
         >Download</button>
+        -->
+        <a
+            href="/report"
+            id="research-btn-download-list"
+            class="btn btn-primary btn-lg"
+        >Download</a>
     </div>
 </div>
 {% include 'dashboard/research_list_modal.html' %}
