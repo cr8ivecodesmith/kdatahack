@@ -224,6 +224,9 @@ DJANGO_APPS = (
 
 # Third pary apps/libraries
 THIRD_PARTY_APPS = (
+    # Django JS
+    #'djangojs',
+
     # Django REST Framework
     # See: http://www.django-rest-framework.org/
     'rest_framework',
@@ -231,9 +234,6 @@ THIRD_PARTY_APPS = (
     # Social auth integration
     # See: http://psa.matiasaguirre.net/docs/configuration/django.html
     'social.apps.django_app.default',
-
-    # Django JS
-    'djangojs',
 
     # EZTables
     'eztables',

@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load js %}
 {% load eztables %}
 <!DOCTYPE html>
 <html>
@@ -35,7 +34,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="{% static 'kdatahack/libs/jquery/jquery.cookie.js' %}" type="text/javascript"></script>
-    {% django_js %}
     <script type="text/javascript" language="javascript" src="{% static 'kdatahack/libs/datatables/legacy/js/jquery.dataTables.min.js' %}"></script>
 
     {% block extra_js %}

@@ -36,6 +36,14 @@ api_v1_patterns = format_suffix_patterns(patterns(
     ),
 ))
 
+dt_v1_patterns = patterns(
+    '',
+    url(
+        r'masterlist/',
+        include('masteritems.urls'),
+    ),
+)
+
 urlpatterns = patterns(
     '',
 
@@ -47,7 +55,7 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     # Third-party app URLs
-    url(r'^djangojs/', include('djangojs.urls')),
+    #url(r'^djangojs/', include('djangojs.urls')),
 
     # Local app URLs
     url(r'^$', HomePage.as_view(), name='home'),
@@ -55,5 +63,6 @@ urlpatterns = patterns(
     url(r'^item/(?P<item_id>\d+)/$', ItemDetailPage.as_view(), name='item_detail'),
     url(r'^(?P<username>\w+)/$', UserProfileView.as_view(), name='user_profile_view'),
     url(r'^(?P<username>\w+)/edit/$', UserProfileEditView.as_view(), name='user_profile_edit'),
-    url(r'^api/v1/', include(api_v1_patterns, namespace='api_v1'))
+    url(r'^api/v1/', include(api_v1_patterns, namespace='api_v1')),
+    url(r'^dt/v1/', include(dt_v1_patterns, namespace='dt_v1'))
 )

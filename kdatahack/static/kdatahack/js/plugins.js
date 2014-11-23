@@ -37,7 +37,8 @@ var sameOrigin = function(url) {
  *      list_model_id: <int>
  *
  */
-;(function($, Django, window, document, undefined) {
+//;(function($, Django, window, document, undefined) {
+;(function($, window, document, undefined) {
     // Create the defaults
     var pluginName = 'eztables',
         defaults = {
@@ -66,13 +67,36 @@ var sameOrigin = function(url) {
      * All plugin code goes here.
      */
     Plugin.prototype.init = function() {
-        this.datasource = Django.url(this.options.datasourceUrl);
+        /*
+        try {
+            this.datasource = Django.url(this.options.datasourceUrl);
+        }
+        catch(e) {
+            // We assume that its a regular URL
+            this.datasource = this.options.datasourceUrl;
+        }
+        */
+        this.datasource = this.options.datasourceUrl;
+        this.options.datatableArgs['sAjaxSource'] = this.options.datasourceUrl;
+        /*
         if (this.options.datasourceArgs !== undefined) {
-            this.options.datatableArgs['sAjaxSource'] = Django.url(this.options.datasourceUrl, this.options.datasourceArgs);
+            try {
+                this.options.datatableArgs['sAjaxSource'] = Django.url(this.options.datasourceUrl, this.options.datasourceArgs);
+            }
+            catch (e) {
+                this.options.datatableArgs['sAjaxSource'] = this.options.datasourceUrl;
+            }
         }
         else {
-            this.options.datatableArgs['sAjaxSource'] = Django.url(this.options.datasourceUrl);
+            try {
+                this.options.datatableArgs['sAjaxSource'] = Django.url(this.options.datasourceUrl);
+            }
+            catch (e) {
+                cosole.log('Yo!');
+                this.options.datatableArgs['sAjaxSource'] = this.options.datasourceUrl;
+            }
         }
+        */
     };
 
     Plugin.prototype.render = function() {
@@ -88,7 +112,8 @@ var sameOrigin = function(url) {
     $.fn[pluginName] = function(options) {
         return new Plugin(this, options);
     };
-})(jQuery, Django, window, document);
+//})(jQuery, Django, window, document);
+})(jQuery, window, document);
 
 
 /**
@@ -103,7 +128,8 @@ var sameOrigin = function(url) {
  *      'delete'
  *
  */
-;(function($, Django, window, document, undefined) {
+//;(function($, Django, window, document, undefined) {
+;(function($, window, document, undefined) {
     // Create the defaults
     var pluginName = 'restAPI',
         defaults = {
@@ -128,6 +154,8 @@ var sameOrigin = function(url) {
      * All plugin code goes here.
      */
     Plugin.prototype.init = function() {
+        this.endpoint = this.options.urlname;
+        /*
         try {
             this.endpoint = Django.url(this.options.urlname, this.options.kwargs);
         }
@@ -135,6 +163,7 @@ var sameOrigin = function(url) {
             // We assume that its a regular URL
             this.endpoint = this.options.urlname;
         }
+        */
 
         switch (this.options.action) {
             case 'get':
@@ -201,5 +230,6 @@ var sameOrigin = function(url) {
     $.fn[pluginName] = function(options) {
         return new Plugin(this, options);
     };
-})(jQuery, Django, window, document);
+//})(jQuery, Django, window, document);
+})(jQuery, window, document);
 

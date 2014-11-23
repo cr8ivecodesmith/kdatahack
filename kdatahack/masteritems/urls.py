@@ -5,6 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views import (
     MasterItemLAPI,
     MasterItemRAPI,
+    MasterItemDatatable,
 )
 
 
@@ -22,5 +23,10 @@ urlpatterns = patterns(
         r'^masteritem/(?P<pk>\d+)$',
         MasterItemRAPI.as_view(),
         name='masteritem_get',
+    ),
+    url(
+        r'^datatable$',
+        MasterItemDatatable.as_view(),
+        name='masteritem_datatable',
     ),
 )
