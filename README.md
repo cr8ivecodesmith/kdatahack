@@ -4,6 +4,15 @@ A market research tool for PhilGEPs(http://philgeps.gov.ph/) designed to help fa
 
 It's main goal is to help erradicate or minimize overbudgeting for government procurement projects.
 
+Features:
+1. Market Price Comparison
+Price Comparison against current market data
+2. Historical Price Comparison
+Price Comparison against historical price data gathered from previous awards
+3. APIs
+APIs for Organization, Awards, Bidders List, Bid Line Item and Bid Information
+
+
 ## Prerequisites
 
 
