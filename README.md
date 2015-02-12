@@ -1,6 +1,6 @@
 Market Snitch
 ============
-Started out as a hackathon entry for #KabantayNgBayan Procurement Hackathon, November 22-23 2014
+Started out as a hackathon entry for [#KabantayNgBayan Procurement Hackathon](http://data.gov.ph/news/kabantayngbayan-procurement-hack), November 22-23 2014
 
 Market Snitch is market research tool for [PhilGEPs](http://philgeps.gov.ph/) designed to help facilitate the creation of accurate budget estimates based on current market prices.
 
