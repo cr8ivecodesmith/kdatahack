@@ -1,6 +1,8 @@
 Market Snitch
 ============
-A market research tool for PhilGEPs(http://philgeps.gov.ph/) designed to help facilitate the creation of accurate budget estimates based on current market prices.
+Started out as a hackathon entry for #KabantayNgBayan Procurement Hackathon, November 22-23 2014
+
+Market Snitch is market research tool for [PhilGEPs](http://philgeps.gov.ph/) designed to help facilitate the creation of accurate budget estimates based on current market prices.
 
 It's main goal is to help erradicate or minimize overbudgeting for government procurement projects.
 
