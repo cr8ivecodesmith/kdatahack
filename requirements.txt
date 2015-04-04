@@ -9,4 +9,3 @@ messytables
 django-eztables
 ipython
 tablib
-messytables
