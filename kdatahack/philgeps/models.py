@@ -33,9 +33,9 @@ class Awards(models.Model):
     proceed_date = models.DateTimeField(null=True)
     contract_start_date = models.DateTimeField(null=True)
     contract_end_date = models.DateTimeField(null=True)
-    is_short_list = models.IntegerField(null=True, max_length=1)
-    is_re_award = models.IntegerField(null=True, max_length=1)
-    is_amp = models.IntegerField(null=True, max_length=1)
+    is_short_list = models.IntegerField(null=True)
+    is_re_award = models.IntegerField(null=True)
+    is_amp = models.IntegerField(null=True)
 
     master_item = models.ForeignKey('masteritems.MasterItem', related_name='awards_set', blank=True, null=True)
 
