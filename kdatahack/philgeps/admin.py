@@ -23,3 +23,6 @@ class BidLineItemAdmin(admin.ModelAdmin):
 class BidInformationAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(models.ResourceAPIMap)
+class ResourceAPIMapAdmin(admin.ModelAdmin):
+    pass
