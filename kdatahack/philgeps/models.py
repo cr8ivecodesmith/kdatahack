@@ -1,56 +1,18 @@
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+
+from core.models import SelfAwareModelMixin
+
+from .managers import (
+    OrganizationManager,
+    BidInformationManager,
+    BidLineItemManager,
+    AwardsManager,
+    BiddersListManager
+)
 
 
-class BiddersList(models.Model):
-    award_id = models.ForeignKey('Awards', to_field='award_id', null=True)
-    line_item_id = models.ForeignKey('BidLineItem', to_field='line_item_id', null=True)
-    org_id = models.ForeignKey('Organization', to_field='org_id', null=True)
-    bidder_name = models.CharField(max_length=2048)
-    modified_date = models.DateTimeField(null=True)
-
-
-class Awards(models.Model):
-    award_id = models.PositiveIntegerField(null=False, unique=True)
-    ref_id = models.ForeignKey('BidInformation', to_field='ref_id', null=True)
-    award_title = models.CharField(max_length=2048, blank=True)
-    publish_date = models.DateTimeField(null=True)
-    previous_award_id = models.PositiveIntegerField(null=True)
-    line_item_id = models.ForeignKey('BidLineItem', to_field='line_item_id', null=True)
-    item_name = models.CharField(max_length=2048, blank=True)
-    item_description = models.TextField()
-    quantity = models.PositiveIntegerField(null=True)
-    uom = models.CharField(max_length=2048, blank=True)
-    budget = models.FloatField()
-    unspc_code = models.CharField(max_length=2048, blank=True)
-    unspc_description = models.TextField()
-    awardee_id = models.ForeignKey('Organization', to_field='org_id', null=True)
-    awardee = models.CharField(max_length=2048, blank=True)
-    award_type = models.CharField(max_length=2048, blank=True)
-    contract_amt = models.FloatField()
-    award_date = models.DateTimeField(null=True)
-    award_reason = models.CharField(max_length=2048, blank=True)
-    contract_no = models.CharField(max_length=2048, blank=True)
-    proceed_date = models.DateTimeField(null=True)
-    contract_start_date = models.DateTimeField(null=True)
-    contract_end_date = models.DateTimeField(null=True)
-    is_short_list = models.IntegerField(null=True)
-    is_re_award = models.IntegerField(null=True)
-    is_amp = models.IntegerField(null=True)
-
-    master_item = models.ForeignKey('masteritems.MasterItem', related_name='awards_set', blank=True, null=True)
-
-    def __unicode__(self):
-     return "{}:{}".format(self.award_id, self.item_name)
-
-    def _get_unit_price(self):
-        if self.quantity:
-            return self.contract_amt / self.quantity
-        else:
-            return self.contract_amt
-    unit_price = property(_get_unit_price)
-
-
-class Organization(models.Model):
+class Organization(models.Model, SelfAwareModelMixin):
     org_id = models.PositiveIntegerField(null=False, unique=True)
     member_type_id = models.PositiveIntegerField(null=True)
     member_type = models.CharField(max_length=2048, blank=True)
@@ -76,28 +38,15 @@ class Organization(models.Model):
     org_status = models.CharField(max_length=2048, blank=True)
     modified_date = models.DateTimeField(null=True)
 
-
-class BidLineItem(models.Model):
-    ref_id = models.ForeignKey('BidInformation', to_field='ref_id', null=True)
-    line_item_id = models.PositiveIntegerField(unique=True, null=True)
-    item_name = models.CharField(max_length=2048, blank=True, null=True)
-    item_description = models.TextField(blank=True, null=True)
-    qty = models.PositiveIntegerField(null=True)
-    uomid = models.PositiveIntegerField(null=True)
-    uom = models.CharField(max_length=2048, blank=True, null=True)
-    budget = models.FloatField(null=True)
-    modified_date = models.DateTimeField(null=True)
-
-    def __unicode__(self):
-        return "{}:{}".format(self.line_item_id, self.item_name)
+    objects = OrganizationManager()
 
 
-class BidInformation(models.Model):
+class BidInformation(models.Model, SelfAwareModelMixin):
     ref_id = models.IntegerField(unique=True)
     ref_no = models.CharField(blank=True, max_length=2048)  
     stage = models.IntegerField(null=True)
     stage2_ref_id = models.CharField(blank=True, max_length=2048)
-    org_id = models.ForeignKey('Organization', to_field='org_id', related_name='bid_information', null=True)
+    org_id = models.ForeignKey(Organization, to_field='org_id', related_name='bid_information', null=True)
     classification = models.CharField(blank=True, max_length=2048)
     solicitation_no = models.CharField(blank=True, max_length=2048)
     notice_type = models.CharField(blank=True, max_length=2048)
@@ -113,9 +62,9 @@ class BidInformation(models.Model):
     trade_agreement = models.CharField(blank=True, max_length=2048)
     pre_bid_date = models.DateTimeField(null=True, blank=False)
     pre_bid_venue = models.CharField(blank=True, max_length=2048)
-    procuring_entity_org_id = models.ForeignKey('Organization', to_field='org_id', related_name='procuring_bid_information', null=True)
+    procuring_entity_org_id = models.ForeignKey(Organization, to_field='org_id', related_name='procuring_bid_information', null=True)
     procuring_entity_org = models.CharField(blank=True, max_length=2048)
-    client_agency_org_id = models.ForeignKey('Organization', to_field='org_id', related_name='client_bid_information', null=True)
+    client_agency_org_id = models.ForeignKey(Organization, to_field='org_id', related_name='client_bid_information', null=True)
     client_agency_org = models.CharField(blank=True, max_length=2048)
     contact_person = models.CharField(blank=True, max_length=2048)
     contact_person_address = models.TextField(blank=True)
@@ -132,6 +81,85 @@ class BidInformation(models.Model):
     creation_date = models.DateTimeField(null=True)
     modified_date = models.DateTimeField(null=True)
 
+    objects = BidInformationManager()
+
     def __unicode__(self):
         return "{}: {} {}".format(self.ref_id, self.notice_type, self.business_category)
 
+
+class BidLineItem(models.Model, SelfAwareModelMixin):
+    ref_id = models.ForeignKey(BidInformation, to_field='ref_id', null=True)
+    line_item_id = models.PositiveIntegerField(unique=True, null=True)
+    item_name = models.CharField(max_length=2048, blank=True, null=True)
+    item_description = models.TextField(blank=True, null=True)
+    qty = models.PositiveIntegerField(null=True)
+    uomid = models.PositiveIntegerField(null=True)
+    uom = models.CharField(max_length=2048, blank=True, null=True)
+    budget = models.FloatField(null=True)
+    modified_date = models.DateTimeField(null=True)
+
+    objects = BidLineItemManager()
+
+    def __unicode__(self):
+        return "{}:{}".format(self.line_item_id, self.item_name)
+
+
+class Awards(models.Model, SelfAwareModelMixin):
+    award_id = models.PositiveIntegerField(null=False, unique=True)
+    ref_id = models.ForeignKey(BidInformation, to_field='ref_id', null=True)
+    award_title = models.CharField(max_length=2048, blank=True)
+    publish_date = models.DateTimeField(null=True)
+    previous_award_id = models.PositiveIntegerField(null=True)
+    line_item_id = models.ForeignKey(BidLineItem, to_field='line_item_id', null=True)
+    item_name = models.CharField(max_length=2048, blank=True)
+    item_description = models.TextField()
+    quantity = models.PositiveIntegerField(null=True)
+    uom = models.CharField(max_length=2048, blank=True)
+    budget = models.FloatField()
+    unspc_code = models.CharField(max_length=2048, blank=True)
+    unspc_description = models.TextField()
+    awardee_id = models.ForeignKey(Organization, to_field='org_id', null=True)
+    awardee = models.CharField(max_length=2048, blank=True)
+    award_type = models.CharField(max_length=2048, blank=True)
+    contract_amt = models.FloatField()
+    award_date = models.DateTimeField(null=True)
+    award_reason = models.CharField(max_length=2048, blank=True)
+    contract_no = models.CharField(max_length=2048, blank=True)
+    proceed_date = models.DateTimeField(null=True)
+    contract_start_date = models.DateTimeField(null=True)
+    contract_end_date = models.DateTimeField(null=True)
+    is_short_list = models.IntegerField(null=True)
+    is_re_award = models.IntegerField(null=True)
+    is_amp = models.IntegerField(null=True)
+
+    master_item = models.ForeignKey('masteritems.MasterItem', related_name='awards_set', blank=True, null=True)
+
+    objects = AwardsManager()
+
+    def __unicode__(self):
+     return "{}:{}".format(self.award_id, self.item_name)
+
+    def _get_unit_price(self):
+        if self.quantity:
+            return self.contract_amt / self.quantity
+        else:
+            return self.contract_amt
+    unit_price = property(_get_unit_price)
+
+
+class BiddersList(models.Model, SelfAwareModelMixin):
+    award_id = models.ForeignKey(Awards, to_field='award_id', null=True)
+    line_item_id = models.ForeignKey(BidLineItem, to_field='line_item_id', null=True)
+    org_id = models.ForeignKey(Organization, to_field='org_id', null=True)
+    bidder_name = models.CharField(max_length=2048)
+    modified_date = models.DateTimeField(null=True)
+
+    objects = BiddersListManager()
+
+
+class ResourceAPIMap(models.Model, SelfAwareModelMixin):
+    source_model = models.OneToOneField(ContentType, null=False)
+    api_endpoint = models.URLField(null=False)
+
+    def __unicode__(self):
+        return '{}: {}'.format(self.source_model, self.api_endpoint)
