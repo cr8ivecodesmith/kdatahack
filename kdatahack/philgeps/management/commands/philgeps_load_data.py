@@ -119,17 +119,17 @@ def create_bidder_list_records(items):
             del rec['_id']
         data = load_class('philgeps.models.BiddersList')()
         try:
-            data.award_id = Awards.objects.get('award_id', 0)
+            data.award_id = Awards.objects.get(award_id=rec.get('award_id'))
         except:
             pass
 
         try:
-            data.line_item_id = BidLineItem.objects.get('line_item_id', 0)
+            data.line_item_id = BidLineItem.objects.get(line_item_id=rec.get('line_item_id'))
         except:
             pass
 
         try:
-            data.org_id = Organization.objects.get('org_id', 0)
+            data.org_id = Organization.objects.get(org_id=rec.get('org_id'))
         except:
             pass
 
@@ -153,7 +153,7 @@ def create_awards_records(items):
         data = load_class('philgeps.models.Awards')()
         data.award_id = rec.get('award_id')
         try:
-            data.ref_id = BidInformation.objects.get('ref_id', 0)
+            data.ref_id = BidInformation.objects.get(ref_id=rec.get('ref_id'))
         except:
             pass
         data.award_title = rec.get('award_title')
@@ -165,7 +165,7 @@ def create_awards_records(items):
             publish_date = None
         data.previous_award_id = rec.get('previous_award_id')
         try:
-            data.line_item_id = BidLineItem.objects.get('line_item_id', 0)
+            data.line_item_id = BidLineItem.objects.get(line_item_id=rec.get('line_item_id'))
         except:
             pass
         data.item_name = rec.get('item_name')
@@ -175,10 +175,12 @@ def create_awards_records(items):
         data.unspsc_code = rec.get('unspsc_code')
         data.unspsc_description = rec.get('unspsc_description')
         data.budget = rec.get('budget')
+
         try:
-            data.awardee_id = Organization.objects.get('org_id', 0)
-        except:
+            data.awardee_id = Organization.objects.get(org_id=rec.get('awardee_id'))
+        except Exception as e:
             pass
+
         data.awardee = rec.get('awardee')
         data.award_type = rec.get('award_type')
         data.contract_amt = rec.get('contract_amt')
@@ -287,12 +289,12 @@ def create_bid_line_item_records(items):
         data = load_class('philgeps.models.BidLineItem')()
 
         try:
-            data.award_id = Awards.objects.get('ref_id', 0)
+            data.award_id = Awards.objects.get(ref_id=rec.get('ref_id'))
         except:
             pass
 
         try:
-            data.line_item_id = BidInformation.objects.get('line_item_id', 0)
+            data.line_item_id = BidInformation.objects.get(line_item_id=rec.get('line_item_id'))
         except:
             pass
 
@@ -331,7 +333,7 @@ def create_bid_information_records(items):
         data.stage2_ref_id = rec.get('stage2_ref_id')
 
         try:
-            data.org_id = Organization.objects.get('org_id', 0)
+            data.org_id = Organization.objects.get(org_id=rec.get('org_id'))
         except:
             pass
 
@@ -366,14 +368,14 @@ def create_bid_information_records(items):
         data.pre_bid_venue = rec.get('pre_bid_venue')
 
         try:
-            data.procuring_entity_org_id = Organization.objects.get('procuring_entity_org_id', 0)
+            data.procuring_entity_org_id = Organization.objects.get(procuring_entity_org_id=rec.get('procuring_entity_org_id'))
         except:
             pass
 
         data.procuring_entity_org = rec.get('procuring_entity_org')
 
         try:
-            data.client_agency_org_id = Organization.objects.get('client_agency_org_id', 0)
+            data.client_agency_org_id = Organization.objects.get(client_agency_org_id=rec.get('client_agency_org_id'))
         except:
             pass
 
