@@ -3,6 +3,14 @@ from django.contrib.contenttypes.models import ContentType
 
 from core.models import SelfAwareModelMixin
 
+from .managers import (
+    OrganizationManager,
+    BidInformationManager,
+    BidLineItemManager,
+    AwardsManager,
+    BiddersListManager
+)
+
 
 class Organization(models.Model, SelfAwareModelMixin):
     org_id = models.PositiveIntegerField(null=False, unique=True)
@@ -29,6 +37,8 @@ class Organization(models.Model, SelfAwareModelMixin):
     zip_code = models.CharField(max_length=2048, blank=True)
     org_status = models.CharField(max_length=2048, blank=True)
     modified_date = models.DateTimeField(null=True)
+
+    objects = OrganizationManager()
 
 
 class BidInformation(models.Model, SelfAwareModelMixin):
@@ -71,6 +81,8 @@ class BidInformation(models.Model, SelfAwareModelMixin):
     creation_date = models.DateTimeField(null=True)
     modified_date = models.DateTimeField(null=True)
 
+    objects = BidInformationManager()
+
     def __unicode__(self):
         return "{}: {} {}".format(self.ref_id, self.notice_type, self.business_category)
 
@@ -85,6 +97,8 @@ class BidLineItem(models.Model, SelfAwareModelMixin):
     uom = models.CharField(max_length=2048, blank=True, null=True)
     budget = models.FloatField(null=True)
     modified_date = models.DateTimeField(null=True)
+
+    objects = BidLineItemManager()
 
     def __unicode__(self):
         return "{}:{}".format(self.line_item_id, self.item_name)
@@ -120,6 +134,8 @@ class Awards(models.Model, SelfAwareModelMixin):
 
     master_item = models.ForeignKey('masteritems.MasterItem', related_name='awards_set', blank=True, null=True)
 
+    objects = AwardsManager()
+
     def __unicode__(self):
      return "{}:{}".format(self.award_id, self.item_name)
 
@@ -137,6 +153,8 @@ class BiddersList(models.Model, SelfAwareModelMixin):
     org_id = models.ForeignKey(Organization, to_field='org_id', null=True)
     bidder_name = models.CharField(max_length=2048)
     modified_date = models.DateTimeField(null=True)
+
+    objects = BiddersListManager()
 
 
 class ResourceAPIMap(models.Model, SelfAwareModelMixin):
