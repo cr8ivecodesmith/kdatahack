@@ -4,7 +4,7 @@ Started out as a hackathon entry for [#KabantayNgBayan Procurement Hackathon](ht
 
 Market Snitch is market research tool for [PhilGEPs](http://philgeps.gov.ph/) designed to help facilitate the creation of accurate budget estimates based on current market prices.
 
-It's main goal is to help erradicate or minimize overbudgeting for government procurement projects.
+It's main goal is to help eradicate or minimize overbudgeting for government procurement projects.
 
 ### Features:
 1. Market Price Comparison
