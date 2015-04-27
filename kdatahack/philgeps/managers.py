@@ -177,4 +177,3 @@ class AwardsManager(models.Manager):
                 data.save()
             except Exception as e:
                 pass
-
