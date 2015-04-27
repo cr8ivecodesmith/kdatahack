@@ -1,5 +1,5 @@
 from django.db import models
-
+from .managers import BiddersListManager, AwardsManager
 
 class BiddersList(models.Model):
     award_id = models.ForeignKey('Awards', to_field='award_id', null=True)
@@ -7,6 +7,8 @@ class BiddersList(models.Model):
     org_id = models.ForeignKey('Organization', to_field='org_id', null=True)
     bidder_name = models.CharField(max_length=2048)
     modified_date = models.DateTimeField(null=True)
+
+    objects = BiddersListManager()
 
 
 class Awards(models.Model):
@@ -48,6 +50,8 @@ class Awards(models.Model):
         else:
             return self.contract_amt
     unit_price = property(_get_unit_price)
+
+    objects = AwardsManager()
 
 
 class Organization(models.Model):
