@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.contrib.contenttypes.models import ContentType
 
 from core.models import SelfAwareModelMixin
@@ -10,6 +11,59 @@ from .managers import (
     AwardsManager,
     BiddersListManager
 )
+
+
+class BiddersList(models.Model):
+    award_id = models.ForeignKey('Awards', to_field='award_id', null=True)
+    line_item_id = models.ForeignKey('BidLineItem', to_field='line_item_id', null=True)
+    org_id = models.ForeignKey('Organization', to_field='org_id', null=True)
+    bidder_name = models.CharField(max_length=2048)
+    modified_date = models.DateTimeField(null=True)
+
+    objects = BiddersListManager()
+
+
+class Awards(models.Model):
+    award_id = models.PositiveIntegerField(null=False, unique=True)
+    ref_id = models.ForeignKey('BidInformation', to_field='ref_id', null=True)
+    award_title = models.CharField(max_length=2048, blank=True)
+    publish_date = models.DateTimeField(null=True)
+    previous_award_id = models.PositiveIntegerField(null=True)
+    line_item_id = models.ForeignKey('BidLineItem', to_field='line_item_id', null=True)
+    item_name = models.CharField(max_length=2048, blank=True)
+    item_description = models.TextField()
+    quantity = models.PositiveIntegerField(null=True)
+    uom = models.CharField(max_length=2048, blank=True)
+    budget = models.FloatField()
+    unspc_code = models.CharField(max_length=2048, blank=True)
+    unspc_description = models.TextField()
+    awardee_id = models.ForeignKey('Organization', to_field='org_id', null=True)
+    awardee = models.CharField(max_length=2048, blank=True)
+    award_type = models.CharField(max_length=2048, blank=True)
+    contract_amt = models.FloatField()
+    award_date = models.DateTimeField(null=True)
+    award_reason = models.CharField(max_length=2048, blank=True)
+    contract_no = models.CharField(max_length=2048, blank=True)
+    proceed_date = models.DateTimeField(null=True)
+    contract_start_date = models.DateTimeField(null=True)
+    contract_end_date = models.DateTimeField(null=True)
+    is_short_list = models.IntegerField(null=True)
+    is_re_award = models.IntegerField(null=True)
+    is_amp = models.IntegerField(null=True)
+
+    master_item = models.ForeignKey('masteritems.MasterItem', related_name='awards_set', blank=True, null=True)
+
+    def __unicode__(self):
+     return "{}:{}".format(self.award_id, self.item_name)
+
+    def _get_unit_price(self):
+        if self.quantity:
+            return self.contract_amt / self.quantity
+        else:
+            return self.contract_amt
+    unit_price = property(_get_unit_price)
+
+    objects = AwardsManager()
 
 
 class Organization(models.Model, SelfAwareModelMixin):
