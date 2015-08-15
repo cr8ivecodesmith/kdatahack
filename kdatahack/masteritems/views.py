@@ -12,7 +12,7 @@ from .serializers import MasterItemSerializer
 
 
 class MasterItemLAPI(ListAPIView):
-    model = MasterItem
+    queryset = MasterItem.objects.all()
     serializer_class = MasterItemSerializer
     paginate_by = 10
     max_paginate_by = 100
@@ -26,7 +26,7 @@ class MasterItemLAPI(ListAPIView):
 
 
 class MasterItemRAPI(RetrieveAPIView):
-    model = MasterItem
+    queryset = MasterItem.objects.all()
     serializer_class = MasterItemSerializer
 
 

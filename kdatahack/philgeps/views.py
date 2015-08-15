@@ -24,7 +24,7 @@ from .serializers import (
 
 
 class BiddersListLAPI(ListAPIView):
-    model = BiddersList
+    queryset = BiddersList.objects.all()
     serializer_class = BiddersListSerializer
     paginate_by = 10
     max_paginate_by = 100
@@ -39,7 +39,7 @@ class BiddersListLAPI(ListAPIView):
 
 
 class AwardsLAPI(ListAPIView):
-    model = Awards
+    queryset = Awards.objects.all()
     serializer_class = AwardsSerializer
     paginate_by = 10
     max_paginate_by = 100
@@ -76,7 +76,7 @@ class AwardsLAPI(ListAPIView):
 
 
 class OrganizationLAPI(ListAPIView):
-    model = Organization
+    queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
     paginate_by = 10
     max_paginate_by = 100
@@ -111,7 +111,7 @@ class OrganizationLAPI(ListAPIView):
 
 
 class BidLineItemLAPI(ListAPIView):
-    model = BidLineItem
+    queryset = BidLineItem.objects.all()
     serializer_class = BidLineItemSerializer
     paginate_by = 10
     max_paginate_by = 100
@@ -131,7 +131,7 @@ class BidLineItemLAPI(ListAPIView):
 
 
 class BidInformationLAPI(ListAPIView):
-    model = BidInformation
+    queryset = BidInformation.objects.all()
     serializer_class = BidInformationSerializer
     paginate_by = 10
     max_paginate_by = 100
@@ -180,25 +180,25 @@ class BidInformationLAPI(ListAPIView):
 
 
 class BiddersListRAPI(RetrieveAPIView):
-    model = BiddersList
+    queryset = BiddersList.objects.all()
     serializer_class = BiddersListSerializer
 
 
 class AwardsRAPI(RetrieveAPIView):
-    model = Awards
+    queryset = Awards.objects.all()
     serializer_class = AwardsSerializer
 
 
 class OrganizationRAPI(RetrieveAPIView):
-    model = Organization
+    queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
 
 
 class BidLineItemRAPI(RetrieveAPIView):
-    model = BidLineItem
+    queryset = BidLineItem.objects.all()
     serializer_class = BidLineItemSerializer
 
 
 class BidInformationRAPI(RetrieveAPIView):
-    model = BidInformation
+    queryset = BidInformation.objects.all()
     serializer_class = BidInformationSerializer
