@@ -2,12 +2,14 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import core.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('masteritems', '__first__'),
+        ('contenttypes', '0002_remove_content_type_name'),
+        ('masteritems', '0001_initial'),
     ]
 
     operations = [
@@ -39,6 +41,7 @@ class Migration(migrations.Migration):
                 ('is_re_award', models.IntegerField(null=True)),
                 ('is_amp', models.IntegerField(null=True)),
             ],
+            bases=(models.Model, core.models.SelfAwareModelMixin),
         ),
         migrations.CreateModel(
             name='BiddersList',
@@ -48,6 +51,7 @@ class Migration(migrations.Migration):
                 ('modified_date', models.DateTimeField(null=True)),
                 ('award_id', models.ForeignKey(to='philgeps.Awards', to_field=b'award_id', null=True)),
             ],
+            bases=(models.Model, core.models.SelfAwareModelMixin),
         ),
         migrations.CreateModel(
             name='BidInformation',
@@ -89,6 +93,7 @@ class Migration(migrations.Migration):
                 ('creation_date', models.DateTimeField(null=True)),
                 ('modified_date', models.DateTimeField(null=True)),
             ],
+            bases=(models.Model, core.models.SelfAwareModelMixin),
         ),
         migrations.CreateModel(
             name='BidLineItem',
@@ -104,6 +109,7 @@ class Migration(migrations.Migration):
                 ('modified_date', models.DateTimeField(null=True)),
                 ('ref_id', models.ForeignKey(to='philgeps.BidInformation', to_field=b'ref_id', null=True)),
             ],
+            bases=(models.Model, core.models.SelfAwareModelMixin),
         ),
         migrations.CreateModel(
             name='Organization',
@@ -134,6 +140,16 @@ class Migration(migrations.Migration):
                 ('org_status', models.CharField(max_length=2048, blank=True)),
                 ('modified_date', models.DateTimeField(null=True)),
             ],
+            bases=(models.Model, core.models.SelfAwareModelMixin),
+        ),
+        migrations.CreateModel(
+            name='ResourceAPIMap',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('api_endpoint', models.CharField(max_length=2048, blank=True)),
+                ('source_model', models.OneToOneField(to='contenttypes.ContentType')),
+            ],
+            bases=(models.Model, core.models.SelfAwareModelMixin),
         ),
         migrations.AddField(
             model_name='bidinformation',
