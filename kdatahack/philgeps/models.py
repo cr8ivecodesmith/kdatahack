@@ -213,7 +213,7 @@ class BiddersList(models.Model, SelfAwareModelMixin):
 
 class ResourceAPIMap(models.Model, SelfAwareModelMixin):
     source_model = models.OneToOneField(ContentType, null=False)
-    api_endpoint = models.URLField(null=False)
+    api_endpoint = models.CharField(max_length=2048, blank=True)
 
     def __unicode__(self):
         return '{}: {}'.format(self.source_model, self.api_endpoint)
