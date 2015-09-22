@@ -237,6 +237,7 @@ THIRD_PARTY_APPS = (
 
     # EZTables
     'eztables',
+    'django_datatables_view',
 )
 
 # Apps specific for this project go here.

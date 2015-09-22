@@ -1,5 +1,8 @@
+import pdb
+
 from django.shortcuts import render
 
+from django_datatables_view.base_datatable_view import BaseDatatableView
 from eztables.views import DatatablesView
 from rest_framework import filters
 from rest_framework.generics import (
@@ -50,3 +53,23 @@ class MasterItemDatatable(DatatablesView):
     def get_market_price(self, row):
         price = self.model.objects.get(pk=row[0])._get_market_price()
         return price
+
+
+class MasterItemDatatable2(BaseDatatableView):
+    model = MasterItem
+    columns = [
+        'id',
+        'item_name',
+        'item_description',
+        'uom',
+        'market_price',
+    ]
+    order_columns = [
+        'id',
+        'item_name',
+        'item_description',
+        'uom',
+    ]
+    max_display_length = 100
+
+

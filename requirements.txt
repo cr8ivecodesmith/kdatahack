@@ -6,6 +6,6 @@ pillow
 gunicorn
 django-filter
 messytables
-django-eztables
+django-datatables-view
 ipython
 tablib

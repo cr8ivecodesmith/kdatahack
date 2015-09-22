@@ -6,6 +6,7 @@ from .views import (
     MasterItemLAPI,
     MasterItemRAPI,
     MasterItemDatatable,
+    MasterItemDatatable2,
 )
 
 
@@ -28,5 +29,10 @@ urlpatterns = patterns(
         r'^datatable$',
         MasterItemDatatable.as_view(),
         name='masteritem_datatable',
+    ),
+    url(
+        r'^datatable2$',
+        MasterItemDatatable2.as_view(),
+        name='masteritem_datatable2',
     ),
 )

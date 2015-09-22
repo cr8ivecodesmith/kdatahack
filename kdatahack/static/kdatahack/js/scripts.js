@@ -8,24 +8,18 @@
 
 var renderMasterItemDT = function (objId) {
     var args = {
-        'aoColumns': [
-            null, // id
-            null, // item_name
-            null, // item_description
-            null, // uom
-            null, // market_price
-        ],
-        'aoColumnDefs': [
-            {'mRender': function (data, type, row) {
-                anchor = '<a href="/item/' + row[0] + '" target="_blank">' + data + '</a>';
-                return anchor;
-            }, 'aTargets': [1]} // item_name
-        ],
+        //'processing': true,
+        'serverSide': true,
+        'ajax': '/api/v1/masterlist/datatable2',
     };
+    $(objId).DataTable(args);
+
+    /*
     return $(objId).eztables({
-        datasourceUrl: '/api/v1/masterlist/datatable',
+        datasourceUrl: '/api/v1/masterlist/datatable2',
         datatableArgs: args
     });
+    */
 };
 
 var getMasterItems = function () {
@@ -40,7 +34,20 @@ var getMasterItems = function () {
  *
  */
 $(document).ready(function () {
+    var args = {
+        'processing': true,
+        'serverSide': true,
+        'ajax': '/api/v1/masterlist/datatable2',
+    };
+    var oTable = $('#research-masteritem-dt-modal').DataTable({
+        'processing': true,
+        'serverSide': true,
+        'ajax': '/api/v1/masterlist/datatable2',
+    });
+
+    /*
     var masterItemDT = renderMasterItemDT('#research-masteritem-dt-modal');
+
     getMasterItems().responseObj.done(function (data) {
         console.log(data);
     });
@@ -82,12 +89,11 @@ $(document).ready(function () {
         var listRows = $('#research-list-table tr');
         $.each(listRows, function (i, v) {
             var cols = v.cells;
-            /*
-            console.log($(cols[cols.length - 1]).text());
-            console.log($(cols[cols.length - 2]).text());
-            console.log($(cols[cols.length - 3]).text());
-            */
+            // console.log($(cols[cols.length - 1]).text());
+            // console.log($(cols[cols.length - 2]).text());
+            // console.log($(cols[cols.length - 3]).text());
         });
     });
+    */
 
 });
